@@ -1,0 +1,89 @@
+{% load static %}
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+
+<!-- Old Navigation Bar (Bottom) -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top navbar-bottom">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'homepage' %}">
+            <img src="{% static '\photos\F2C.png' %}" alt="Your Logo" height="30">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="{% url 'profile' %}"><img src="{{user.profile_image.url}}" style="height:30px;width:30px;border-radius: 50%; text-align: center;"></a>
+                </li>
+                {% if user.user_type == 'user' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'wishlist' %}">
+                        <i class="fas fa-heart"></i> Wishlist
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cart'  %}">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                    </a>
+                </li>
+                {% endif %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categories
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'vegetables' %}">Vegetables</a>
+                        <a class="dropdown-item" href="{% url 'fishes' %}">Fish</a>
+                        <a class="dropdown-item" href="{% url 'meats' %}">Meat</a>
+                        <a class="dropdown-item" href="{% url 'fruits' %}">Fruits</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'shoppage' %}">Shop</a>
+                </li>
+                {% if user.user_type == 'farmer' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'addproduct' %}">Upload</a>
+                </li>
+                {% endif %}
+                {% if user.user_type == 'admin' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'permission_product' %}">Approve</a>
+                </li>
+                {% endif %}
+                {% if user.user_type == 'agent' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'permission_product' %}">Approve</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <form method="POST" action="{% url 'search_query' %}" class="form-inline">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-warning text-white my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logoutpage' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navbarDropdown = document.querySelector('.navbar-nav .dropdown');
+
+        document.querySelector('#navbarDropdown').addEventListener('click', function (event) {
+            event.preventDefault();
+            // Toggle the 'show' class to open/close the dropdown
+            navbarDropdown.classList.toggle('show');
+        });
+    });
+</script>
+
+{% endblock %}

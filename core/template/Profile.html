@@ -1,0 +1,109 @@
+ {% extends 'Shop.html' %}
+ {% block content %}
+ 
+<div class="profile-container">
+
+    <div class="text-center">
+        <img src="{{user.profile_image.url}}" alt="Profile Photo" class="img-fluid" id="profileimg">
+        <h2 class="mt-3">{{ user.display_name}}</h2>
+        <p>Email: {{ user.email}}</p>
+        <p>Present Address: {{ user.present_address}}</p>
+        <p>Phone:  {{ user.phone_number}}</p>
+        <p>User Type:  {{ user.user_type}}</p>
+        {% if user.user_type == 'farmer' %}
+        <p>Permanent Address:  {{ user.permanent_address}}</p>
+        <p>Farm Area Address:  {{ user.farm_area_adress}}</p>
+        <p>Farmer NID:  <img src="/{{ user.nid_photo}}" alt="Signature" style="width: 100px; height: auto;"></p>
+        <p>More details about  farm:  {{ user.details}}</p>
+        {% endif %}
+
+        <div class="mt-3">
+            <!-- Add your social media links here -->
+            {% if user.user_type == 'farmer' %}
+            <a href="{% url 'addproduct' %}" class="btn btn-primary"><i class="fas fa-plus plus" ></i> Add Product</a>
+            {% endif %}
+            
+            <a href="https://www.facebook.com/akalif.khan.583" class="btn btn-danger"><i class="fab fa-facebook"></i>Facebook</a>
+        </div>
+        
+        <!-- Edit Button -->
+        <button class="btn btn-warning mt-3" onclick="toggleEdit()">Edit Profile</button>
+
+        <!-- Editable Form (Initially Hidden) -->
+        <form class="mt-3" id="editForm" style="display: none;" method="POST" action="{% url 'profile_update' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="editName">ID:</label>
+                <input type="text" value="{{ user.id}}" name="id" class="form-control" id="editName" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="editName">Name:</label>
+                <input type="text" value="{{ user.display_name}}"  name="name" class="form-control" id="editName" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="editEmail">Email:</label>
+                <input type="email"  value="{{ user.email}}" name="email" class="form-control" id="editEmail" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="editPresentAddress">Present Address:</label>
+                <input type="text" value="{{ user.present_address}}" name="p_address" class="form-control" id="editPresentAddress" placeholder="Enter your present address">
+            </div>
+            <div class="form-group">
+                <label for="editPhone">Phone:</label>
+                <input type="tel" value="{{ user.phone_number}}" name="phone" class="form-control" id="editPhone" placeholder="Enter your phone number">
+            </div>
+            <div class="form-group">
+                <label for="editProfileImage">Profile Image:</label>
+                <input type="file" name="image" class="form-control-file" id="editProfileImage">
+            </div>
+            {% if user.user_type == 'farmer' %}
+            <div class="form-group">
+                <label for="editPermanentAddress">Permanent Address:</label>
+                <input type="text" value="{{ user.permanent_address}}" name="per_address" class="form-control" id="editPermanentAddress" placeholder="Enter your permanent address">
+            </div>
+            <div class="form-group">
+                <label for="editFarmArea">Farm Area:</label>
+                <input type="text"  value="{{ user.farm_area_adress}}" name="farm_area" class="form-control" id="editFarmArea" placeholder="Enter your farm area">
+            </div>
+            <div class="form-group">
+                <label for="editProfileImage">NID Image:</label>
+                
+                <input type="file" name="nid" class="form-control-file" id="editProfileImage">
+                <img src="/{{ user.nid_photo}}" alt="Signature" style="width: 100px; height: auto;">
+            </div>
+            <div class="form-group">
+                <label for="editDetails">Details:</label>
+                <textarea class="form-control" id="editDetails" name="details" placeholder="জমির এরিয়া কতটুকু?
+                জমি নিজের কি না অন্যের?">{{ user.details}}</textarea>
+            </div>
+            {% endif %}
+            <button type="submit" class="btn btn-success" onclick="saveChanges()">Save Changes</button>
+        </form>
+        
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies (Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+    function toggleEdit() {
+        // Show/hide the edit form
+        $('#editForm').toggle();
+    }
+
+    function saveChanges() {
+        // Add logic to save changes to the server/database
+        // For simplicity, let's just hide the form here
+        $('#editForm').hide();
+    }
+</script>
+<!-- Bootstrap JS and dependencies (Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+{% endblock %}

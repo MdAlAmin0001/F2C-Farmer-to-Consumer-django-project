@@ -1,0 +1,422 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Font Awesome Icons (for cart icon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            background-color: #3498db;
+            padding: 1px;
+            padding-top: 70px;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+        }
+
+        .product-card {
+            max-width: 300px;
+            margin: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.596);
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+            float: left;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: scale(1.1);
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            display: block;
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .zoom-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0);
+            transition: background 0.3s ease;
+        }
+
+        .image-container:hover .product-image {
+            transform: scale(1.3);
+        }
+
+        .image-container:hover .zoom-overlay {
+            background: rgba(255, 255, 255, 0);
+        }
+
+        img {
+            max-width: 100%;
+            height: 40px;
+        }
+
+        @media (min-width: 1025px) {
+            .h-custom {
+                height: 100vh !important;
+            }
+        }
+
+        .profile-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgb(0, 0, 0);
+            margin-top: 20px;
+        }
+
+        .profile-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: inherit;
+            border-radius: 12px;
+            z-index: -1;
+            filter: blur(20px);
+        }
+
+        #profileimg {
+            width: 50%;
+            height: 250px;
+            border-radius: 35%;
+        }
+
+        .banner-container {
+            width: 100vw;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+        }
+        /* Custom Styles for Home Page */
+
+  
+  /* Responsive adjustments */
+  @media (max-width: 992px) {
+    .category-card {
+      margin-bottom: 20px;
+    }
+  }
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+    .navbar-nav {
+        margin-top: 15px; /* Add space between the brand logo and the toggle button */
+    }
+
+    .navbar-toggler {
+        margin-right: 15px; /* Add space between the toggle button and other items */
+    }
+
+    .navbar-collapse {
+        background-color: #343a40; /* Background color of the collapsed menu */
+        padding: 15px; /* Add padding to the collapsed menu */
+        border-radius: 4px; /* Optional: Add rounded corners to the collapsed menu */
+    }
+
+    .navbar-nav .nav-item {
+        text-align: center; /* Center-align the items in the collapsed menu */
+        margin: 6px 0; /* Add space between collapsed menu items */
+    }
+
+    .navbar-nav .nav-item:last-child {
+        margin-bottom: 0; /* Remove extra margin from the last item in the collapsed menu */
+    }
+}
+@media (min-width: 1025px) {
+    .h-custom {
+    height: 100vh !important;
+    }
+    }
+    .wcontainer{
+        background-color: #566e86;
+    }
+    /* Modal content styles */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5px auto; /* 10% from the top and centered */
+    padding: 5px;
+    border: 1px solid #888;
+    max-width: 500px; /* Set a maximum width for the modal content */
+    width: 80%; /* Could be more or less, adjust as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* Close button styles */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Error message style */
+#error-modal .modal-content {
+    background-color: #f8d7da; /* Red background color for errors */
+    color: #721c24; /* Dark red text color */
+}
+
+/* Success message style */
+#success-modal .modal-content {
+    background-color: #d4edda; /* Green background color for success */
+    color: #155724; /* Dark green text color */
+}
+
+
+
+.wcontainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8); 
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    color:#1e1e1e;
+}
+
+h1 {
+    font-size: 24px;
+    color: #1E1E1E;
+    margin-bottom: 20px;
+}
+
+.wcontainer2 {
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.6); 
+    backdrop-filter: blur(8px); 
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-danger {
+    background-color: #1E1E1E;
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background-color: #bd2130;
+}
+
+p {
+    font-size: 18px;
+    color: #777;
+    margin-top: 20px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+
+.back-to-homepage {
+    display: inline-block;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.back-to-homepage i {
+    margin-right: 5px;
+}
+
+.cart {
+    background-color: rgba(255, 255, 255, 0.8); /* Glassy background color */
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Glassy box shadow */
+    color:black;
+}
+
+/* Style for the table */
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+   
+    padding: 12px;
+    text-align: left;
+}
+
+/* Style for the Remove button */
+.table a {
+    color: #dc3545; /* Bootstrap danger color */
+}
+
+/* Style for the total price and checkout button */
+p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Bootstrap primary color */
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+.checkout{
+    float:right;
+}
+
+    </style>
+</head>
+
+<body>
+    {% include "navbar.html" %}
+    {% block content %}
+    {% for i in pkey %}
+<div class="product-card">
+    <a href="{% url 'Product_details' i.id %}">
+    <div class="image-container">
+        <img src="/{{i.Product_Image}}" alt="Product Photo" class="img-fluid mb-3 product-image">
+        <div class="zoom-overlay"></div>
+    </div>
+    </a>
+    <a href="{% url 'Product_details' i.id %}">
+    <div class="product-text">
+        <h4>{{i.Product_Title}} - {{i.quantity}} kg</h4>
+        <h5>Price: {{i.Product_price}} Taka</h5>
+    </div>
+    </a>
+{% if user.user_type == 'user' %}
+    <div class="addtocardandother">
+        <form method="post" action="{% url 'add_to_cart' i.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Add to cart</button>
+        </form>
+        <a href="{% url 'add_to_wishlist' i.id %}"><button class="btn btn-outline-secondary ml-2"><i class="fas fa-heart"></i> Wishlist</button></a>
+        {% endif %}
+        
+            
+        
+        {% if user.user_type == 'admin' %}
+        <a href="{% url 'editproduct' i.id %}" class="btn btn-primary"><i class="bi bi-trash" ></i> Edit</a>
+        {% endif %}
+        {% if user.user_type == 'agent' %}
+        <a href="{% url 'editproduct' i.id %}" class="btn btn-primary"><i class="bi bi-trash" ></i>Edit</a>
+        {% endif %}
+        {% if user.user_type == 'farmer' %}
+        <a href="{% url 'editproduct' i.id %}" class="btn btn-primary"><i class="bi bi-trash" ></i> Edit</a>
+        {% endif %}
+
+        {% if user.user_type == 'admin' %}
+        <a href="{% url 'delete_product' i.id %}" class="btn btn-primary"><i class="bi bi-trash" ></i> Delete</a>
+        {% endif %}
+        {% if user.user_type == 'agent' %}
+        <a href="{% url 'delete_product' i.id %}" class="btn btn-primary"><i class="bi bi-trash" ></i>Delete</a>
+        {% endif %}
+        {% if user.user_type == 'farmer' %}
+        <a href="{% url 'delete_product' i.id %}" class="btn btn-primary"><i class="bi bi-trash" ></i> Delete</a>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+
+
+    <!-- Bootstrap JS and dependencies (Popper.js)
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        document.querySelectorAll('.product-card').forEach(function (card) {
+            card.addEventListener('mousemove', function (e) {
+                const x = e.pageX - this.offsetLeft;
+                const y = e.pageY - this.offsetTop;
+
+                const centerX = this.offsetWidth / 2;
+                const centerY = this.offsetHeight / 2;
+
+                const deltaX = x - centerX;
+                const deltaY = y - centerY;
+
+                const percentX = (deltaX / centerX) * 100;
+                const percentY = (deltaY / centerY) * 100;
+
+                const transformValue = `scale(1.02) translate(${percentX * 0.1}%, ${percentY * 0.1}%)`;
+
+                this.style.transform = transformValue;
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script> -->
+
+    {% for i in sq %}
+<div class="product-card">
+    <img src="/{{i.Product_Image}}" alt="Product Photo" class="img-fluid mb-3">
+    <h4>{{i.Product_Title}} - {{i.quantity}} kg</h4>
+    <h5>Price: {{i.Product_price}} Taka</h5>
+    
+    <!-- Placeholder link for adding the product to the cart -->
+    <a href="#" class="btn btn-primary">Add to cart</a>
+    
+    <button class="btn btn-outline-secondary ml-2"><i class="fas fa-heart"></i> Wishlist</button>
+    <a href="{% url 'Product_details' i.id %}"><p>See Details</p></a>
+</div>
+
+{% endfor %}
+    
+{% endblock %}
+</body>
+
+</html>

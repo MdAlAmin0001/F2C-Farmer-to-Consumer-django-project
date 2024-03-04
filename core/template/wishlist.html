@@ -1,0 +1,24 @@
+{% extends 'Shop.html' %}
+
+{% block content %}
+<div class="wcontainer">
+    <h1>Wishlist</h1>
+    <div class="wcontainer2">
+        {% if wishlist_items %}
+            <ul>
+                {% for item in wishlist_items %}
+                    <li>
+                        <img src="/{{ item.product.Product_Image }}">
+                        {{ item.product.Product_Title }} - {{ item.product.quantity }} kg
+                        <a href="{% url 'remove_from_wishlist' item.id %}"><i class="fas fa-trash-alt"></i></a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Your wishlist is empty.</p>
+        {% endif %}
+    </div>
+
+    <a href="{% url 'homepage' %}" class="back-to-homepage"><i class="fas fa-arrow-left"></i> Back to Homepage</a>
+</div>
+{% endblock %}

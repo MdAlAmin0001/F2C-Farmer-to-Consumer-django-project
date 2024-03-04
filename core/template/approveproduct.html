@@ -1,0 +1,36 @@
+
+{% extends "Shop.html" %}
+{% block content %}
+{% for i in pkey %}
+<div class="product-card">
+    <img src="/{{i.Product_Image}}" alt="Product Photo" class="img-fluid mb-3">
+    <h4>{{i.Product_Title}}</h4>
+    <p class="text-muted">{{i.Product_Description}}</p>
+    <h5>Price: {{i.Product_price}} Taka</h5>
+
+    
+    <div class="btn-group">
+        <form action="{% url 'permissioned' i.id %}" method="post">
+        {% csrf_token %}
+      
+        <button type="submit" class="btn btn-success">Approve Now</button>
+      
+      </form>
+
+      <form action="{% url 'permissioned_denied' i.id %}" method="post">
+          {% csrf_token %}
+
+          
+          <button type="submit" class="btn btn-danger">Cancel Post</button>
+      </form>
+    </div>
+    
+</div>
+{% endfor %}
+
+<!-- Bootstrap JS and dependencies (Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{% endblock %}
+

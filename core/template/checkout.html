@@ -1,0 +1,114 @@
+<!-- checkout.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        form {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        /* Add more styles as needed */
+    </style>
+</head>
+<body>
+
+    <h1>Checkout</h1>
+
+    <!-- Display Cart Items -->
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cart_item in cart_items %}
+                <tr>
+                    <td>{{ cart_item.product.name }}</td>
+                    <td>{{ cart_item.quantity }}</td>
+                    <td>${{ cart_item.product.price }}</td>
+                    <td>${{ cart_item.total_price }}</td>
+                    <td>
+                        <!-- Add this form to your 'checkout.html' template -->
+                        <form method="post" action="{% url 'update_quantity' cart_item.id 'increment' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="increment">
+                            <button type="submit">+</button>
+                        </form>
+
+                        <!-- Similarly, add a form for decrement -->
+                        <form method="post" action="{% url 'update_quantity' cart_item.id 'decrement' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="decrement">
+                            <button type="submit">-</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Display Total Price -->
+    <p>Total Price: ${{ total_price }}</p>
+
+    <!-- Add a form for completing the checkout -->
+    <form method="post" action="#">
+        {% csrf_token %}
+        <button type="submit">Complete Checkout</button>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,221 @@
+
+{% extends 'Shop.html' %}
+{% load static %}
+{% block content %}
+    <div>
+        <h2>Categories</h2>
+        <a href="{% url 'vegetables' %}">
+        <div class="product-card">
+        <div class="image-container">
+          <img src="{% static '\photos\Home1.png' %}" alt="Product Photo" class="img-fluid mb-3 product-image">
+          <div class="zoom-overlay"></div>
+        </div>
+
+      <div class="product-text">
+          <h4>Vegetables</h4>
+      </div>
+  </div>
+</a>
+
+    <div>
+      <!-- Category 2: Fish -->
+      <a href="{% url 'fishes' %}">
+      <div class="product-card">
+        <div class="image-container">
+            <img src="{% static '\photos\Home2.png' %}" alt="Product Photo" class="img-fluid mb-3 product-image">
+            <div class="zoom-overlay"></div>
+        </div>
+  
+        <div class="product-text">
+            <h4>Fishes</h4>
+        </div>
+    </div>
+  </a>
+
+
+    <div>
+      <!-- Category 3: Meat -->
+      <a href="{% url 'meats' %}">
+      <div class="product-card">
+        <div class="image-container">
+            <img src="{% static '\photos\Home3.png' %}" alt="Product Photo" class="img-fluid mb-3 product-image">
+            <div class="zoom-overlay"></div>
+        </div>
+  
+        <div class="product-text">
+            <h4>Meats</h4>
+        </div>
+    </div>
+  </a>
+
+  <div>
+      <!-- Category 4: Fruits -->
+      <a href="{% url 'fruits' %}">
+      <div class="product-card">
+        <div class="image-container">
+            <img src="{% static '\photos\Home4.png' %}" alt="Product Photo" class="img-fluid mb-3 product-image">
+            <div class="zoom-overlay"></div>
+        </div>
+  
+        <div class="product-text">
+            <h4>Fruits</h4>
+        </div>
+    </div>
+  </a>
+
+        <div>
+   
+    
+
+  <div>
+    
+    <a href="{% url 'vegetables' %}">
+      <div class="product-card">
+        <div class="image-container">
+          <img src="{% static '\photos\Home1.png' %}" alt="Product Photo" class="img-fluid mb-3 product-image">
+          <div class="zoom-overlay"></div>
+        </div>
+
+        <div class="product-text">
+          <h4>Vegetables</h4>
+          <h4>See more vegetables Product</h4>
+        </div>
+      </div>
+    </a>
+
+{% for product in featured_products %}
+<div class="product-card">
+    <div class="image-container">
+        <img src="/{{ product.Product_Image }}" alt="{{ product.Product_Title }}" class="img-fluid mb-3 product-image">
+        <div class="zoom-overlay"></div>
+    </div>
+
+    <div class="product-text">
+        <h5>{{ product.Product_Title }} {{product.quantity}} কেজি ({{ product.Product_price }} টাকা)</h5>
+        
+        <!-- Add any other details you want to display -->
+    </div>
+    <div class="addtocardandother">
+      <a href="{% url 'add_to_cart' product.id  %}" class="btn btn-primary">Add to cart</a>
+      <button class="btn btn-outline-secondary ml-2"><i class="fas fa-heart"></i> Wishlist</button>
+      <a href="#">
+          <p>See Details</p>
+      </a>
+  </div>
+</div>
+{% endfor %}
+<div>
+  
+  <a href="{% url 'fishes' %}">
+    <div class="product-card">
+      <div class="image-container">
+          <img src="{% static '\photos\Home2.png' %}" alt="Product Photo" class="img-fluid mb-3 product-image">
+          <div class="zoom-overlay"></div>
+      </div>
+
+      <div class="product-text">
+          <h4>Fishes</h4>
+          <h4>See more & More Fishes Product</h4>
+      </div>
+  </div>
+</a>
+
+{% for product in featured_products2 %}
+<div class="product-card">
+  <div class="image-container">
+      <img src="/{{ product.Product_Image }}" alt="{{ product.Product_Title }}" class="img-fluid mb-3 product-image">
+      <div class="zoom-overlay"></div>
+  </div>
+
+  <div class="product-text">
+      <h5>{{ product.Product_Title }} {{product.quantity}} কেজি ({{ product.Product_price }} টাকা)</h5>
+      
+      <!-- Add any other details you want to display -->
+  </div>
+  <div class="addtocardandother">
+    <a href="{% url 'add_to_cart' product.id  %}" class="btn btn-primary">Add to cart</a>
+    <button class="btn btn-outline-secondary ml-2"><i class="fas fa-heart"></i> Wishlist</button>
+    <a href="#">
+        <p>See Details</p>
+    </a>
+</div>
+</div>
+{% endfor %}
+
+<div>
+  
+  <a href="{% url 'meats' %}">
+    <div class="product-card">
+      <div class="image-container">
+          <img src="{% static '\photos\Home3.png' %}" alt="Product Photo" class="img-fluid mb-3 product-image">
+          <div class="zoom-overlay"></div>
+      </div>
+
+      <div class="product-text">
+          <h3>Meats</h3>
+          <h4>See more & More Meats Product</h4>
+      </div>
+  </div>
+</a>
+
+{% for product in featured_products3 %}
+<div class="product-card">
+  <div class="image-container">
+      <img src="/{{ product.Product_Image }}" alt="{{ product.Product_Title }}" class="img-fluid mb-3 product-image">
+      <div class="zoom-overlay"></div>
+  </div>
+
+  <div class="product-text">
+      <h5>{{ product.Product_Title }} {{product.quantity}} কেজি ({{ product.Product_price }} টাকা)</h5>
+      
+      <!-- Add any other details you want to display -->
+  </div>
+  <div class="addtocardandother">
+    <a href="{% url 'add_to_cart' product.id  %}" class="btn btn-primary">Add to cart</a>
+     <a href=""><button class="btn btn-outline-secondary ml-2"><i class="fas fa-heart"></i> Wishlist</button>
+    <a href="#">
+        <p>See Details</p>
+    </a>
+</div>
+</div>
+{% endfor %}
+<div>
+  
+  <a href="{% url 'fruits' %}">
+    <div class="product-card">
+      <div class="image-container">
+          <img src="{% static '\photos\Home4.png' %}" alt="Product Photo" class="img-fluid mb-3 product-image">
+          <div class="zoom-overlay"></div>
+      </div>
+
+      <div class="product-text">
+          <h4>Fruits</h4>
+          <h4>See more & more Fruits Product</h4>
+      </div>
+  </div>
+</a>
+
+{% for product in featured_products4 %}
+<div class="product-card">
+  <div class="image-container">
+      <img src="/{{ product.Product_Image }}" alt="{{ product.Product_Title }}" class="img-fluid mb-3 product-image">
+      <div class="zoom-overlay"></div>
+  </div>
+
+  <div class="product-text">
+      <h5>{{ product.Product_Title }} {{product.quantity}} কেজি ({{ product.Product_price }} টাকা)</h5>
+      
+      <!-- Add any other details you want to display -->
+  </div>
+  <div class="addtocardandother">
+    <a href="{% url 'add_to_cart' product.id  %}" class="btn btn-primary">Add to cart</a>
+    <button class="btn btn-outline-secondary ml-2"><i class="fas fa-heart"></i> Wishlist</button>
+    <a href="#">
+        <p>See Details</p>
+    </a>
+</div>
+</div>
+{% endfor %}
+
+  </div>
+{% endblock %}

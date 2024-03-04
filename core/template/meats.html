@@ -1,0 +1,33 @@
+{% extends 'Shop.html' %}
+
+{% block content %}
+  <h2>Meats Products</h2>
+
+  {% if products %}
+    <div class="row">
+      {% for product in products %}
+      <div class="product-card">
+        <div class="image-container">
+            <img src="/{{product.Product_Image}}" alt="Product Photo" class="img-fluid mb-3 product-image">
+            <div class="zoom-overlay"></div>
+        </div>
+
+        <div class="product-text">
+            <h4>{{product.Product_Title}} - {{product.quantity}} kg</h4>
+            <h5>Price: {{product.Product_price}} Taka</h5>
+        </div>
+
+        <div class="addtocardandother">
+            <a href="#" class="btn btn-primary">Add to cart</a>
+            <button class="btn btn-outline-secondary ml-2"><i class="fas fa-heart"></i> Wishlist</button>
+            <a href="#">
+                <p>See Details</p>
+            </a>
+        </div>
+    </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No products available in this category.</p>
+  {% endif %}
+{% endblock %}

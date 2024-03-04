@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Form</title>
+
+  <!-- Bootstrap CSS (make sure to include it) -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+{% extends "Shop.html" %}
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4">Product Information</h2>
+    {% for i in prod %}
+    <form action="{% url 'updateproduct' %}" method="POST" enctype="multipart/form-data" class="container" >
+        {% csrf_token %}
+      <!-- Product Photo Input -->
+      <div class="form-group">
+        <label for="productPhoto">Product ID:</label>
+        <input type="text" value="{{ i.id}}" class="form-control-file" id="productPhoto" name="productid" readonly>
+      </div>
+      <div class="form-group">
+        <label for="productPhoto">Product Photo:</label>
+        <input type="file" value="{{ i.Product_Image}}" class="form-control-file" id="productPhoto" name="productPhoto">
+        <img src="/{{i.Product_Image}}" height="80px" width="100px" alt="Product Photo" class="img-fluid mb-3 product-image">
+    </div>
+
+      <!-- Product Name Input -->
+      <div class="form-group">
+        <label for="productName">Product Name:</label>
+        <input type="text" value="{{ i.Product_Title}}" class="form-control" id="productName" name="productName" required>
+      </div>
+
+      <!-- Product Description Input -->
+      <div class="form-group">
+        <label for="productDescription">Product Description:</label>
+        <textarea class="form-control"  id="productDescription" name="productDescription" rows="3" required>{{ i.Product_Description}}"</textarea>
+      </div>
+
+      <!-- Product Quantity Input -->
+      <div class="form-group">
+        <label for="quantity">Quantity (kg):</label>
+        <input type="number" value="{{ i.quantity}}" id="quantity" name="quantity" step="0.01" required>
+      </div>
+
+      <!-- Product Price Input -->
+      <div class="form-group">
+        <label for="productPrice">Product Price:</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">৳</span>
+          </div>
+          <input type="number" class="form-control" value="{{ i.Product_price}}" id="productPrice" name="productPrice" step="0.01" required>
+        </div>
+      </div>
+
+      <!-- Product Category Input -->
+      <div class="form-group">
+        <label for="category">Category:</label>
+        <select class="form-control" id="category" value="{{ i.category}}" name="category" default="none" required>
+            <option value="none">Select Category</option>
+            <option value="vegetables">vegetables</option>
+            <option value="fishes">fishes</option>
+            <option value="meats">meats</option>
+            <option value="fruits">fruits</option>
+        </select>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% endfor %}
+  </div>
+
+  <!-- Bootstrap JS and Popper.js (make sure to include them if needed) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}
+</body>
+</html>
